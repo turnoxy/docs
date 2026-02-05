@@ -7,8 +7,7 @@ description: "Endpoints and protocols for connecting to Turnoxy proxies"
 
 | Protocol | Host | Port |
 |----------|------|------|
-| HTTP/HTTPS | `proxy.turnoxy.com` | `1318` |
-| SOCKS5 | `proxy.turnoxy.com` | `1319` |
+| HTTP/HTTPS | `p1.turnoxy.com` | `1318` |
 
 ## URL Format
 
@@ -17,7 +16,7 @@ description: "Endpoints and protocols for connecting to Turnoxy proxies"
 ```
 
 ```
-http://sub_k8mX2pL9-country-US:Qw4nR7vB3xY9mK2p@proxy.turnoxy.com:1318
+http://sub_k8mX2pL9-country-US:Qw4nR7vB3xY9mK2p@p1.turnoxy.com:1318
 └─┬─┘ └────┬─────┘ └────┬────┘ └───────┬────────┘ └──────┬───────┘ └┬─┘
   │        │            │              │                 │          │
 protocol username   parameters      password           host       port
@@ -27,11 +26,11 @@ protocol username   parameters      password           host       port
 
 ```bash
 # HTTP
-curl -x "http://sub_k8mX2pL9:Qw4nR7vB3xY9mK2p@proxy.turnoxy.com:1318" \
+curl -x "http://sub_k8mX2pL9:Qw4nR7vB3xY9mK2p@p1.turnoxy.com:1318" \
      http://example.com
 
 # HTTPS (same proxy URL, different target)
-curl -x "http://sub_k8mX2pL9:Qw4nR7vB3xY9mK2p@proxy.turnoxy.com:1318" \
+curl -x "http://sub_k8mX2pL9:Qw4nR7vB3xY9mK2p@p1.turnoxy.com:1318" \
      https://example.com
 ```
 
@@ -39,19 +38,3 @@ curl -x "http://sub_k8mX2pL9:Qw4nR7vB3xY9mK2p@proxy.turnoxy.com:1318" \
 The proxy URL uses `http://` even for HTTPS targets. The proxy creates an encrypted CONNECT tunnel.
 </Note>
 
-## SOCKS5
-
-For non-HTTP protocols or applications requiring SOCKS5:
-
-```bash
-curl -x "socks5://sub_k8mX2pL9:Qw4nR7vB3xY9mK2p@proxy.turnoxy.com:1319" \
-     https://example.com
-```
-
-## Protocol Comparison
-
-| Feature | HTTP/HTTPS | SOCKS5 |
-|---------|------------|--------|
-| Port | 1318 | 1319 |
-| Non-HTTP protocols | No | Yes |
-| Parameters support | Yes | Yes |

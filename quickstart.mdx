@@ -18,7 +18,7 @@ You can find your credentials in the [Dashboard](https://turnoxy.com/dashboard).
 
 <CodeGroup>
 ```bash cURL
-curl -x "http://sub_k8mX2pL9:Qw4nR7vB3xY9mK2p@proxy.turnoxy.com:1318" \
+curl -x "http://sub_k8mX2pL9:Qw4nR7vB3xY9mK2p@p1.turnoxy.com:1318" \
      https://api.ipify.org
 ```
 
@@ -26,8 +26,8 @@ curl -x "http://sub_k8mX2pL9:Qw4nR7vB3xY9mK2p@proxy.turnoxy.com:1318" \
 import requests
 
 proxies = {
-    "http": "http://sub_k8mX2pL9:Qw4nR7vB3xY9mK2p@proxy.turnoxy.com:1318",
-    "https": "http://sub_k8mX2pL9:Qw4nR7vB3xY9mK2p@proxy.turnoxy.com:1318"
+    "http": "http://sub_k8mX2pL9:Qw4nR7vB3xY9mK2p@p1.turnoxy.com:1318",
+    "https": "http://sub_k8mX2pL9:Qw4nR7vB3xY9mK2p@p1.turnoxy.com:1318"
 }
 
 response = requests.get("https://api.ipify.org", proxies=proxies)
@@ -39,7 +39,7 @@ const axios = require('axios');
 
 const response = await axios.get('https://api.ipify.org', {
   proxy: {
-    host: 'proxy.turnoxy.com',
+    host: 'p1.turnoxy.com',
     port: 1318,
     auth: {
       username: 'sub_k8mX2pL9',
@@ -57,16 +57,16 @@ console.log(response.data);
 Customize your requests by adding parameters to the username:
 
 ```bash
-# Target US residential IPs
-curl -x "http://sub_k8mX2pL9-country-US:Qw4nR7vB3xY9mK2p@proxy.turnoxy.com:1318" \
+# Target US IPs
+curl -x "http://sub_k8mX2pL9-country-US:Qw4nR7vB3xY9mK2p@p1.turnoxy.com:1318" \
      https://api.ipify.org
 
-# Use datacenter IPs in Germany
-curl -x "http://sub_k8mX2pL9-pool-dc-country-DE:Qw4nR7vB3xY9mK2p@proxy.turnoxy.com:1318" \
+# Target Germany IPs
+curl -x "http://sub_k8mX2pL9-country-DE:Qw4nR7vB3xY9mK2p@p1.turnoxy.com:1318" \
      https://api.ipify.org
 
 # Sticky session (same IP for 10 minutes)
-curl -x "http://sub_k8mX2pL9-session-mysession-ttl-10:Qw4nR7vB3xY9mK2p@proxy.turnoxy.com:1318" \
+curl -x "http://sub_k8mX2pL9-session-mysession-ttl-10:Qw4nR7vB3xY9mK2p@p1.turnoxy.com:1318" \
      https://api.ipify.org
 ```
 
@@ -76,13 +76,13 @@ curl -x "http://sub_k8mX2pL9-session-mysession-ttl-10:Qw4nR7vB3xY9mK2p@proxy.tur
   <Card title="Authentication" icon="key" href="/authentication/password">
     Learn about authentication methods.
   </Card>
-  <Card title="Parameters" icon="sliders" href="/proxies/parameters/overview">
+  <Card title="Parameters" icon="sliders" href="/proxies/parameters">
     Explore all available parameters.
   </Card>
-  <Card title="IP Pool Types" icon="server" href="/proxies/parameters/pool">
-    Choose the right IP pool for your use case.
-  </Card>
-  <Card title="Geotargeting" icon="location-dot" href="/proxies/parameters/country">
+  <Card title="Geotargeting" icon="location-dot" href="/proxies/parameters#country">
     Target specific locations.
+  </Card>
+  <Card title="Code Examples" icon="code" href="/examples/curl">
+    Ready-to-use code snippets.
   </Card>
 </CardGroup>
