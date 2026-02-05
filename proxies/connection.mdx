@@ -15,11 +15,17 @@ description: "Proxy endpoints and URL format"
 http://{username}-{params}:{password}@{host}:{port}
 ```
 
+| Component | Example |
+|-----------|---------|
+| Protocol | `http://` |
+| Username | `sub_xxx` |
+| Parameters | `-country-US` |
+| Password | `pass` |
+| Host | `p1.turnoxy.com` |
+| Port | `1318` |
+
 ```
 http://sub_xxx-country-US:pass@p1.turnoxy.com:1318
-└─┬─┘ └──┬──┘ └────┬────┘ └┬─┘ └──────┬──────┘ └┬─┘
-  │      │         │       │          │         │
-protocol user   params   pass       host      port
 ```
 
 ## HTTP/HTTPS
