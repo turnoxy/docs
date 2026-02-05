@@ -9,22 +9,32 @@ description: "Error codes and troubleshooting"
 |--------|----------|-------------|
 | 400 | Bad Request | Invalid parameter format or value |
 | 407 | Proxy Auth Required | Authentication failed |
+| 500 | Internal Error | Server-side failure |
+| 502 | Bad Gateway | Target server unreachable |
+| 503 | Service Unavailable | No proxy available for location |
 
-## Authentication Errors
+---
 
-All authentication failures return HTTP `407`:
+## Authentication Errors (407)
 
-| Scenario | Response |
-|----------|----------|
-| Invalid username | 407 Proxy Authentication Required |
-| Wrong password | 407 Proxy Authentication Required |
-| Expired subscription | 407 Proxy Authentication Required |
-| Exhausted traffic quota | 407 Proxy Authentication Required |
-| IP not whitelisted | 407 Proxy Authentication Required |
+| Error Code | Description |
+|------------|-------------|
+| `INVALID_CREDENTIALS` | Username or password incorrect |
+| `SUBSCRIPTION_EXPIRED` | Subscription has expired |
+| `TRAFFIC_EXHAUSTED` | Traffic quota exceeded |
+| `IP_NOT_WHITELISTED` | IP not in whitelist |
 
-<Note>
-For security reasons, the specific authentication failure cause is not disclosed.
-</Note>
+---
+
+## Proxy Errors (5xx)
+
+| Status | Error Code | Description |
+|--------|------------|-------------|
+| 500 | `INTERNAL_ERROR` | Server encountered an unexpected error |
+| 502 | `TARGET_UNREACHABLE` | Cannot connect to target server |
+| 503 | `NO_PROXY_AVAILABLE` | No proxy available for specified location |
+
+---
 
 ## Parameter Format Errors
 
@@ -93,7 +103,7 @@ HTTP `400 Bad Request`:
 
 <AccordionGroup>
   <Accordion title="407 Proxy Authentication Required">
-    **Causes:** Invalid credentials, expired subscription, exhausted quota, or non-whitelisted IP.
+    **Causes:** `INVALID_CREDENTIALS`, `SUBSCRIPTION_EXPIRED`, `TRAFFIC_EXHAUSTED`, `IP_NOT_WHITELISTED`
 
     **Solutions:**
     1. Verify credentials in [Dashboard](https://turnoxy.com/dashboard)
@@ -111,20 +121,29 @@ HTTP `400 Bad Request`:
     4. Ensure all parameters have values
   </Accordion>
 
-  <Accordion title="Connection Timeout">
-    **Causes:** Slow target server or network issues.
+  <Accordion title="502 Bad Gateway">
+    **Causes:** `TARGET_UNREACHABLE` - target server cannot be reached.
 
     **Solutions:**
-    1. Increase `timeout` parameter
-    2. Try different target URL
+    1. Verify target URL is correct and accessible
+    2. Increase `timeout` parameter
     3. Check if target blocks proxy IPs
   </Accordion>
 
-  <Accordion title="No available IPs for location">
-    **Causes:** No IPs available for requested location.
+  <Accordion title="503 Service Unavailable">
+    **Causes:** `NO_PROXY_AVAILABLE` - no proxy available for specified location.
 
     **Solutions:**
     1. Try broader location (country instead of city)
-    2. Contact support
+    2. Remove geo restrictions temporarily
+    3. Contact support
+  </Accordion>
+
+  <Accordion title="500 Internal Error">
+    **Causes:** `INTERNAL_ERROR` - unexpected server-side failure.
+
+    **Solutions:**
+    1. Retry the request
+    2. If persistent, contact support
   </Accordion>
 </AccordionGroup>
