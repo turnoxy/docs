@@ -7,7 +7,7 @@ description: "Proxy endpoints and URL format"
 
 | Host | Port |
 |------|------|
-| `p1.turnoxy.com` | `1318` |
+| `gate.turnoxy.com` | `1318` |
 
 ## URL Format
 
@@ -21,21 +21,21 @@ http://{username}-{params}:{password}@{host}:{port}
 | Username | `sub_xxx` |
 | Parameters | `-country-US` |
 | Password | `pass` |
-| Host | `p1.turnoxy.com` |
+| Host | `gate.turnoxy.com` |
 | Port | `1318` |
 
 ```
-http://sub_xxx-country-US:pass@p1.turnoxy.com:1318
+http://sub_xxx-country-US:pass@gate.turnoxy.com:1318
 ```
 
 ## HTTP/HTTPS
 
 ```bash
 # HTTP target
-curl -x "http://sub_xxx:pass@p1.turnoxy.com:1318" http://example.com
+curl -x "http://sub_xxx:pass@gate.turnoxy.com:1318" http://example.com
 
 # HTTPS target
-curl -x "http://sub_xxx:pass@p1.turnoxy.com:1318" https://example.com
+curl -x "http://sub_xxx:pass@gate.turnoxy.com:1318" https://example.com
 ```
 
 <Note>

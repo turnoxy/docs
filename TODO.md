@@ -18,7 +18,7 @@ IP pool type selection parameter. Add when multiple pools are available.
 
 **Example**:
 ```bash
-sub_xxx-pool-dc:pass@p1.turnoxy.com:1318
+sub_xxx-pool-dc:pass@gate.turnoxy.com:1318
 ```
 
 **Files to update**:
@@ -34,11 +34,11 @@ sub_xxx-pool-dc:pass@p1.turnoxy.com:1318
 
 SOCKS5 proxy protocol support. Add when SOCKS5 is available.
 
-**Endpoint**: `p1.turnoxy.com:1319`
+**Endpoint**: `gate.turnoxy.com:1319`
 
 **Example**:
 ```bash
-curl -x "socks5://sub_xxx:pass@p1.turnoxy.com:1319" https://example.com
+curl -x "socks5://sub_xxx:pass@gate.turnoxy.com:1319" https://example.com
 ```
 
 **Files to update**:

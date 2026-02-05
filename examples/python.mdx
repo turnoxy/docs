@@ -10,7 +10,7 @@ Replace credentials with your [Dashboard](https://turnoxy.com/dashboard) values.
 ```python
 import requests
 
-proxy = "http://sub_xxx:pass@p1.turnoxy.com:1318"
+proxy = "http://sub_xxx:pass@gate.turnoxy.com:1318"
 
 response = requests.get(
     "https://api.ipify.org",
@@ -25,7 +25,7 @@ print(response.text)
 import requests
 
 # Target US IPs
-proxy = "http://sub_xxx-country-US:pass@p1.turnoxy.com:1318"
+proxy = "http://sub_xxx-country-US:pass@gate.turnoxy.com:1318"
 
 response = requests.get(
     "https://api.ipify.org",
@@ -40,7 +40,7 @@ print(response.text)
 import requests
 
 # Same IP for multiple requests
-proxy = "http://sub_xxx-session-order123-ttl-10:pass@p1.turnoxy.com:1318"
+proxy = "http://sub_xxx-session-order123-ttl-10:pass@gate.turnoxy.com:1318"
 
 session = requests.Session()
 session.proxies = {"http": proxy, "https": proxy}
@@ -57,7 +57,7 @@ import aiohttp
 import asyncio
 
 async def fetch():
-    proxy = "http://sub_xxx:pass@p1.turnoxy.com:1318"
+    proxy = "http://sub_xxx:pass@gate.turnoxy.com:1318"
 
     async with aiohttp.ClientSession() as session:
         async with session.get(
@@ -80,7 +80,7 @@ async def fetch(session, url, proxy):
         return await response.text()
 
 async def main():
-    proxy = "http://sub_xxx:pass@p1.turnoxy.com:1318"
+    proxy = "http://sub_xxx:pass@gate.turnoxy.com:1318"
     urls = ["https://api.ipify.org"] * 5
 
     async with aiohttp.ClientSession() as session:
@@ -97,7 +97,7 @@ asyncio.run(main())
 ```python
 import httpx
 
-proxy = "http://sub_xxx:pass@p1.turnoxy.com:1318"
+proxy = "http://sub_xxx:pass@gate.turnoxy.com:1318"
 
 with httpx.Client(proxy=proxy) as client:
     response = client.get("https://api.ipify.org")
@@ -111,7 +111,7 @@ import httpx
 import asyncio
 
 async def fetch():
-    proxy = "http://sub_xxx:pass@p1.turnoxy.com:1318"
+    proxy = "http://sub_xxx:pass@gate.turnoxy.com:1318"
 
     async with httpx.AsyncClient(proxy=proxy) as client:
         response = await client.get("https://api.ipify.org")

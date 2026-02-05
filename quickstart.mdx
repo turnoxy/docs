@@ -16,13 +16,13 @@ Your credentials are available in the [Dashboard](https://turnoxy.com/dashboard)
 
 <CodeGroup>
 ```bash cURL
-curl -x "http://sub_xxx:pass@p1.turnoxy.com:1318" https://api.ipify.org
+curl -x "http://sub_xxx:pass@gate.turnoxy.com:1318" https://api.ipify.org
 ```
 
 ```python Python
 import requests
 
-proxy = "http://sub_xxx:pass@p1.turnoxy.com:1318"
+proxy = "http://sub_xxx:pass@gate.turnoxy.com:1318"
 response = requests.get("https://api.ipify.org", proxies={"http": proxy, "https": proxy})
 print(response.text)
 ```
@@ -32,7 +32,7 @@ const axios = require('axios');
 
 const response = await axios.get('https://api.ipify.org', {
   proxy: {
-    host: 'p1.turnoxy.com',
+    host: 'gate.turnoxy.com',
     port: 1318,
     auth: { username: 'sub_xxx', password: 'pass' }
   }
@@ -47,13 +47,13 @@ Append parameters to the username with `-` delimiter:
 
 ```bash
 # Target US IPs
-curl -x "http://sub_xxx-country-US:pass@p1.turnoxy.com:1318" https://api.ipify.org
+curl -x "http://sub_xxx-country-US:pass@gate.turnoxy.com:1318" https://api.ipify.org
 
 # Target Germany IPs
-curl -x "http://sub_xxx-country-DE:pass@p1.turnoxy.com:1318" https://api.ipify.org
+curl -x "http://sub_xxx-country-DE:pass@gate.turnoxy.com:1318" https://api.ipify.org
 
 # Sticky session (same IP for 10 minutes)
-curl -x "http://sub_xxx-session-mysession-ttl-10:pass@p1.turnoxy.com:1318" https://api.ipify.org
+curl -x "http://sub_xxx-session-mysession-ttl-10:pass@gate.turnoxy.com:1318" https://api.ipify.org
 ```
 
 ## Next Steps

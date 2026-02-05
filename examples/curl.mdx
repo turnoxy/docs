@@ -8,33 +8,33 @@ Replace `sub_xxx` and `pass` with your [Dashboard](https://turnoxy.com/dashboard
 ## Basic
 
 ```bash
-curl -x "http://sub_xxx:pass@p1.turnoxy.com:1318" https://api.ipify.org
+curl -x "http://sub_xxx:pass@gate.turnoxy.com:1318" https://api.ipify.org
 ```
 
 ## Geotargeting
 
 ```bash
 # Country
-curl -x "http://sub_xxx-country-US:pass@p1.turnoxy.com:1318" https://api.ipify.org
+curl -x "http://sub_xxx-country-US:pass@gate.turnoxy.com:1318" https://api.ipify.org
 
 # State + City
-curl -x "http://sub_xxx-country-US-state-california-city-los_angeles:pass@p1.turnoxy.com:1318" https://api.ipify.org
+curl -x "http://sub_xxx-country-US-state-california-city-los_angeles:pass@gate.turnoxy.com:1318" https://api.ipify.org
 ```
 
 ## Session Control
 
 ```bash
 # Sticky session (default 30 min)
-curl -x "http://sub_xxx-session-order123:pass@p1.turnoxy.com:1318" https://api.ipify.org
+curl -x "http://sub_xxx-session-order123:pass@gate.turnoxy.com:1318" https://api.ipify.org
 
 # Custom TTL
-curl -x "http://sub_xxx-session-order123-ttl-10:pass@p1.turnoxy.com:1318" https://api.ipify.org
+curl -x "http://sub_xxx-session-order123-ttl-10:pass@gate.turnoxy.com:1318" https://api.ipify.org
 ```
 
 ## Full Example
 
 ```bash
-curl -x "http://sub_xxx-country-US-session-task01-ttl-15:pass@p1.turnoxy.com:1318" \
+curl -x "http://sub_xxx-country-US-session-task01-ttl-15:pass@gate.turnoxy.com:1318" \
      -H "User-Agent: Mozilla/5.0" \
      https://httpbin.org/ip
 ```

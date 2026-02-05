@@ -18,7 +18,7 @@ import (
 )
 
 func main() {
-    proxyURL, _ := url.Parse("http://sub_xxx:pass@p1.turnoxy.com:1318")
+    proxyURL, _ := url.Parse("http://sub_xxx:pass@gate.turnoxy.com:1318")
 
     client := &http.Client{
         Transport: &http.Transport{
@@ -48,7 +48,7 @@ import (
 
 func main() {
     // Target US IPs
-    proxyURL, _ := url.Parse("http://sub_xxx-country-US:pass@p1.turnoxy.com:1318")
+    proxyURL, _ := url.Parse("http://sub_xxx-country-US:pass@gate.turnoxy.com:1318")
 
     client := &http.Client{
         Transport: &http.Transport{
@@ -78,7 +78,7 @@ import (
 
 func main() {
     // Same IP for multiple requests
-    proxyURL, _ := url.Parse("http://sub_xxx-session-order123-ttl-10:pass@p1.turnoxy.com:1318")
+    proxyURL, _ := url.Parse("http://sub_xxx-session-order123-ttl-10:pass@gate.turnoxy.com:1318")
 
     client := &http.Client{
         Transport: &http.Transport{
@@ -108,7 +108,7 @@ import (
 func main() {
     c := colly.NewCollector()
 
-    c.SetProxy("http://sub_xxx:pass@p1.turnoxy.com:1318")
+    c.SetProxy("http://sub_xxx:pass@gate.turnoxy.com:1318")
 
     c.OnResponse(func(r *colly.Response) {
         fmt.Println(string(r.Body))
@@ -132,7 +132,7 @@ func main() {
     c := colly.NewCollector()
 
     // Target Japan IPs
-    c.SetProxy("http://sub_xxx-country-JP:pass@p1.turnoxy.com:1318")
+    c.SetProxy("http://sub_xxx-country-JP:pass@gate.turnoxy.com:1318")
 
     c.OnResponse(func(r *colly.Response) {
         fmt.Println(string(r.Body))
@@ -156,7 +156,7 @@ import (
 )
 
 func main() {
-    proxyURL, _ := url.Parse("http://sub_xxx:pass@p1.turnoxy.com:1318")
+    proxyURL, _ := url.Parse("http://sub_xxx:pass@gate.turnoxy.com:1318")
 
     client := &http.Client{
         Transport: &http.Transport{

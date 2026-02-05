@@ -34,7 +34,7 @@ Append parameters to the username with `-` delimiter:
 | `FR` | France | `SG` | Singapore |
 
 ```bash
-sub_xxx-country-US:pass@p1.turnoxy.com:1318
+sub_xxx-country-US:pass@gate.turnoxy.com:1318
 ```
 
 ---
@@ -46,7 +46,7 @@ State or province. Requires `country`.
 Format: lowercase, underscores for spaces (`new_york`, `california`)
 
 ```bash
-sub_xxx-country-US-state-california:pass@p1.turnoxy.com:1318
+sub_xxx-country-US-state-california:pass@gate.turnoxy.com:1318
 ```
 
 ---
@@ -58,10 +58,10 @@ City name. Requires `country`.
 Format: lowercase, underscores for spaces (`los_angeles`, `new_york`)
 
 ```bash
-sub_xxx-country-US-city-los_angeles:pass@p1.turnoxy.com:1318
+sub_xxx-country-US-city-los_angeles:pass@gate.turnoxy.com:1318
 
 # With state for precision
-sub_xxx-country-US-state-california-city-los_angeles:pass@p1.turnoxy.com:1318
+sub_xxx-country-US-state-california-city-los_angeles:pass@gate.turnoxy.com:1318
 ```
 
 <Note>
@@ -83,10 +83,10 @@ Keep the same IP across requests.
 
 ```bash
 # Sticky session
-sub_xxx-session-order123:pass@p1.turnoxy.com:1318
+sub_xxx-session-order123:pass@gate.turnoxy.com:1318
 
 # Sticky with custom TTL
-sub_xxx-session-order123-ttl-10:pass@p1.turnoxy.com:1318
+sub_xxx-session-order123-ttl-10:pass@gate.turnoxy.com:1318
 ```
 
 ---
@@ -96,7 +96,7 @@ sub_xxx-session-order123-ttl-10:pass@p1.turnoxy.com:1318
 Session duration in minutes (1-60). Default: 30.
 
 ```bash
-sub_xxx-session-task01-ttl-15:pass@p1.turnoxy.com:1318
+sub_xxx-session-task01-ttl-15:pass@gate.turnoxy.com:1318
 ```
 
 ---
@@ -106,7 +106,7 @@ sub_xxx-session-task01-ttl-15:pass@p1.turnoxy.com:1318
 Connection timeout in seconds (1-120). Default: 30.
 
 ```bash
-sub_xxx-timeout-60:pass@p1.turnoxy.com:1318
+sub_xxx-timeout-60:pass@gate.turnoxy.com:1318
 ```
 
 ---
@@ -114,7 +114,7 @@ sub_xxx-timeout-60:pass@p1.turnoxy.com:1318
 ## Complete Example
 
 ```bash
-sub_xxx-country-US-state-california-city-los_angeles-session-task01-ttl-15-timeout-60:pass@p1.turnoxy.com:1318
+sub_xxx-country-US-state-california-city-los_angeles-session-task01-ttl-15-timeout-60:pass@gate.turnoxy.com:1318
 ```
 
 See [Errors](/errors) for validation errors.

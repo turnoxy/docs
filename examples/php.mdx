@@ -14,7 +14,7 @@ $ch = curl_init();
 
 curl_setopt_array($ch, [
     CURLOPT_URL => 'https://api.ipify.org',
-    CURLOPT_PROXY => 'http://p1.turnoxy.com:1318',
+    CURLOPT_PROXY => 'http://gate.turnoxy.com:1318',
     CURLOPT_PROXYUSERPWD => 'sub_xxx:pass',
     CURLOPT_RETURNTRANSFER => true,
 ]);
@@ -35,7 +35,7 @@ $ch = curl_init();
 // Target US IPs
 curl_setopt_array($ch, [
     CURLOPT_URL => 'https://api.ipify.org',
-    CURLOPT_PROXY => 'http://p1.turnoxy.com:1318',
+    CURLOPT_PROXY => 'http://gate.turnoxy.com:1318',
     CURLOPT_PROXYUSERPWD => 'sub_xxx-country-US:pass',
     CURLOPT_RETURNTRANSFER => true,
 ]);
@@ -52,7 +52,7 @@ echo $response;
 <?php
 
 // Same IP for multiple requests
-$proxy = 'http://p1.turnoxy.com:1318';
+$proxy = 'http://gate.turnoxy.com:1318';
 $auth = 'sub_xxx-session-order123-ttl-10:pass';
 
 for ($i = 1; $i <= 3; $i++) {
@@ -79,7 +79,7 @@ require 'vendor/autoload.php';
 use GuzzleHttp\Client;
 
 $client = new Client([
-    'proxy' => 'http://sub_xxx:pass@p1.turnoxy.com:1318'
+    'proxy' => 'http://sub_xxx:pass@gate.turnoxy.com:1318'
 ]);
 
 $response = $client->get('https://api.ipify.org');
@@ -97,7 +97,7 @@ use GuzzleHttp\Client;
 
 // Target Germany IPs
 $client = new Client([
-    'proxy' => 'http://sub_xxx-country-DE:pass@p1.turnoxy.com:1318'
+    'proxy' => 'http://sub_xxx-country-DE:pass@gate.turnoxy.com:1318'
 ]);
 
 $response = $client->get('https://api.ipify.org');
@@ -115,7 +115,7 @@ use GuzzleHttp\Client;
 use GuzzleHttp\Promise\Utils;
 
 $client = new Client([
-    'proxy' => 'http://sub_xxx:pass@p1.turnoxy.com:1318'
+    'proxy' => 'http://sub_xxx:pass@gate.turnoxy.com:1318'
 ]);
 
 $promises = [];
@@ -137,7 +137,7 @@ foreach ($results as $i => $response) {
 
 $context = stream_context_create([
     'http' => [
-        'proxy' => 'tcp://p1.turnoxy.com:1318',
+        'proxy' => 'tcp://gate.turnoxy.com:1318',
         'request_fulluri' => true,
         'header' => 'Proxy-Authorization: Basic ' . base64_encode('sub_xxx:pass')
     ]
