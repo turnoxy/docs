@@ -8,49 +8,33 @@ Replace `sub_xxx` and `pass` with your credentials from the [Dashboard](https://
 ## Basic
 
 ```bash
-curl -x "http://sub_xxx:pass@proxy.turnoxy.com:1318" https://api.ipify.org
+curl -x "http://sub_xxx:pass@p1.turnoxy.com:1318" https://api.ipify.org
 ```
 
 ## Geotargeting
 
 ```bash
 # Country
-curl -x "http://sub_xxx-country-US:pass@proxy.turnoxy.com:1318" https://api.ipify.org
+curl -x "http://sub_xxx-country-US:pass@p1.turnoxy.com:1318" https://api.ipify.org
 
 # State + City
-curl -x "http://sub_xxx-country-US-state-california-city-los_angeles:pass@proxy.turnoxy.com:1318" https://api.ipify.org
-```
-
-## IP Pool Types
-
-```bash
-# Datacenter (faster)
-curl -x "http://sub_xxx-pool-dc:pass@proxy.turnoxy.com:1318" https://api.ipify.org
-
-# Mobile (highest anonymity)
-curl -x "http://sub_xxx-pool-mob:pass@proxy.turnoxy.com:1318" https://api.ipify.org
+curl -x "http://sub_xxx-country-US-state-california-city-los_angeles:pass@p1.turnoxy.com:1318" https://api.ipify.org
 ```
 
 ## Session Control
 
 ```bash
 # Sticky session (same IP for 30 min)
-curl -x "http://sub_xxx-session-order123:pass@proxy.turnoxy.com:1318" https://api.ipify.org
+curl -x "http://sub_xxx-session-order123:pass@p1.turnoxy.com:1318" https://api.ipify.org
 
 # Custom TTL (10 min)
-curl -x "http://sub_xxx-session-order123-ttl-10:pass@proxy.turnoxy.com:1318" https://api.ipify.org
-```
-
-## SOCKS5
-
-```bash
-curl -x "socks5://sub_xxx:pass@proxy.turnoxy.com:1319" https://api.ipify.org
+curl -x "http://sub_xxx-session-order123-ttl-10:pass@p1.turnoxy.com:1318" https://api.ipify.org
 ```
 
 ## Full Example
 
 ```bash
-curl -x "http://sub_xxx-pool-dc-country-US-session-task01-ttl-15:pass@proxy.turnoxy.com:1318" \
+curl -x "http://sub_xxx-country-US-session-task01-ttl-15:pass@p1.turnoxy.com:1318" \
      -H "User-Agent: Mozilla/5.0" \
      https://httpbin.org/ip
 ```
