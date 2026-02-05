@@ -1,9 +1,9 @@
 ---
-title: "cURL Examples"
-description: "Ready-to-use cURL commands"
+title: "cURL"
+description: "cURL examples"
 ---
 
-Replace `sub_xxx` and `pass` with your credentials from the [Dashboard](https://turnoxy.com/dashboard).
+Replace `sub_xxx` and `pass` with your [Dashboard](https://turnoxy.com/dashboard) credentials.
 
 ## Basic
 
@@ -24,10 +24,10 @@ curl -x "http://sub_xxx-country-US-state-california-city-los_angeles:pass@p1.tur
 ## Session Control
 
 ```bash
-# Sticky session (same IP for 30 min)
+# Sticky session (default 30 min)
 curl -x "http://sub_xxx-session-order123:pass@p1.turnoxy.com:1318" https://api.ipify.org
 
-# Custom TTL (10 min)
+# Custom TTL
 curl -x "http://sub_xxx-session-order123-ttl-10:pass@p1.turnoxy.com:1318" https://api.ipify.org
 ```
 

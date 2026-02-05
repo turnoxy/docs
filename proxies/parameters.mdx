@@ -1,9 +1,9 @@
 ---
 title: "Parameters"
-description: "Customize proxy requests with parameters"
+description: "Customize proxy requests"
 ---
 
-Parameters are appended to the username using `-` as delimiter:
+Append parameters to the username with `-` delimiter:
 
 ```
 {username}-{param}-{value}-{param}-{value}:{password}@{host}:{port}
@@ -24,7 +24,7 @@ Parameters are appended to the username using `-` as delimiter:
 
 ## country
 
-Target specific country using [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) codes.
+[ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) country code.
 
 | Code | Country | Code | Country |
 |------|---------|------|---------|
@@ -41,9 +41,9 @@ sub_xxx-country-US:pass@p1.turnoxy.com:1318
 
 ## state
 
-Target specific state/province. Requires `country`.
+State or province. Requires `country`.
 
-**Format**: lowercase, spaces → underscores (e.g., `new_york`, `california`)
+Format: lowercase, underscores for spaces (`new_york`, `california`)
 
 ```bash
 sub_xxx-country-US-state-california:pass@p1.turnoxy.com:1318
@@ -53,9 +53,9 @@ sub_xxx-country-US-state-california:pass@p1.turnoxy.com:1318
 
 ## city
 
-Target specific city. Requires `country`.
+City name. Requires `country`.
 
-**Format**: lowercase, spaces → underscores (e.g., `los_angeles`, `new_york`)
+Format: lowercase, underscores for spaces (`los_angeles`, `new_york`)
 
 ```bash
 sub_xxx-country-US-city-los_angeles:pass@p1.turnoxy.com:1318
@@ -72,7 +72,7 @@ If `city` conflicts with `state`, the system falls back to state-level targeting
 
 ## session
 
-Maintain the same IP across multiple requests.
+Keep the same IP across requests.
 
 | Mode | Parameters | Behavior |
 |------|------------|----------|

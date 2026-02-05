@@ -1,6 +1,6 @@
 ---
-title: "Error Reference"
-description: "Complete list of error codes and troubleshooting"
+title: "Errors"
+description: "Error codes and troubleshooting"
 ---
 
 ## HTTP Status Codes
@@ -93,50 +93,38 @@ HTTP `400 Bad Request`:
 
 <AccordionGroup>
   <Accordion title="407 Proxy Authentication Required">
-    **Possible causes:**
-    - Incorrect username or password
-    - Subscription expired
-    - Traffic quota exhausted
-    - Request from non-whitelisted IP (when using IP whitelist auth)
+    **Causes:** Invalid credentials, expired subscription, exhausted quota, or non-whitelisted IP.
 
     **Solutions:**
-    1. Verify credentials in your [Dashboard](https://turnoxy.com/dashboard)
-    2. Check subscription status
-    3. Check remaining traffic
-    4. If using IP whitelist, verify your current IP is whitelisted
+    1. Verify credentials in [Dashboard](https://turnoxy.com/dashboard)
+    2. Check subscription status and remaining traffic
+    3. Verify whitelisted IP if using IP whitelist auth
   </Accordion>
 
   <Accordion title="400 Bad Request">
-    **Possible causes:**
-    - Malformed parameter string
-    - Invalid parameter values
+    **Causes:** Malformed parameter string or invalid values.
 
     **Solutions:**
-    1. Check for typos in parameter names
-    2. Verify parameter values match the expected format
-    3. Ensure no leading/trailing dashes
-    4. Check that all parameters have values
+    1. Check parameter name typos
+    2. Verify value formats
+    3. Remove leading/trailing dashes
+    4. Ensure all parameters have values
   </Accordion>
 
   <Accordion title="Connection Timeout">
-    **Possible causes:**
-    - Target server is slow or unresponsive
-    - Network issues
+    **Causes:** Slow target server or network issues.
 
     **Solutions:**
-    1. Increase the `timeout` parameter
-    2. Try a different target URL to isolate the issue
-    3. Check if the target is blocking proxy IPs
+    1. Increase `timeout` parameter
+    2. Try different target URL
+    3. Check if target blocks proxy IPs
   </Accordion>
 
   <Accordion title="No available IPs for location">
-    **Possible causes:**
-    - Requested country/state/city has no available IPs
-    - Pool type not available in that location
+    **Causes:** No IPs available for requested location.
 
     **Solutions:**
-    1. Try a broader location (e.g., country only instead of city)
-    2. Try a different pool type
-    3. Contact support for availability information
+    1. Try broader location (country instead of city)
+    2. Contact support
   </Accordion>
 </AccordionGroup>

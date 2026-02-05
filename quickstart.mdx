@@ -1,18 +1,16 @@
 ---
 title: "Quickstart"
-description: "Get started with Turnoxy proxies in minutes"
+description: "Make your first proxy request"
 ---
 
-## 1. Get Your Credentials
+## 1. Get Credentials
 
-After subscribing to a plan, you'll receive credentials in this format:
+Your credentials are available in the [Dashboard](https://turnoxy.com/dashboard):
 
 | Component | Example |
 |-----------|---------|
 | Username | `sub_k8mX2pL9` |
 | Password | `Qw4nR7vB3xY9mK2p` |
-
-You can find your credentials in the [Dashboard](https://turnoxy.com/dashboard).
 
 ## 2. Make Your First Request
 
@@ -54,7 +52,7 @@ console.log(response.data);
 
 ## 3. Add Parameters
 
-Customize your requests by adding parameters to the username:
+Append parameters to the username with `-` delimiter:
 
 ```bash
 # Target US IPs
@@ -74,15 +72,15 @@ curl -x "http://sub_k8mX2pL9-session-mysession-ttl-10:Qw4nR7vB3xY9mK2p@p1.turnox
 
 <CardGroup cols={2}>
   <Card title="Authentication" icon="key" href="/authentication/password">
-    Learn about authentication methods.
+    Password and IP whitelist options.
   </Card>
   <Card title="Parameters" icon="sliders" href="/proxies/parameters">
-    Explore all available parameters.
+    All available parameters.
   </Card>
   <Card title="Geotargeting" icon="location-dot" href="/proxies/parameters#country">
-    Target specific locations.
+    Country, state, and city targeting.
   </Card>
-  <Card title="Code Examples" icon="code" href="/examples/curl">
-    Ready-to-use code snippets.
+  <Card title="Examples" icon="code" href="/examples/curl">
+    cURL code snippets.
   </Card>
 </CardGroup>
