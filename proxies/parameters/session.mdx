@@ -1,0 +1,115 @@
+---
+title: "session"
+description: "Maintain the same IP address across multiple requests"
+---
+
+The `session` parameter creates sticky sessions that keep the same IP for multiple requests.
+
+## Specification
+
+| Property | Value |
+|----------|-------|
+| Type | String |
+| Characters | `[a-zA-Z0-9]` |
+| Length | 4-20 characters |
+| Case | Sensitive |
+
+## How It Works
+
+- Same `session` value = same exit IP (within TTL)
+- Different `session` values = different IPs
+- No `session` = rotating IP (new IP each request)
+
+## Usage
+
+```bash
+# Sticky session - same IP for all requests with this session ID
+sub_k8mX2pL9-session-order123:pass@proxy.turnoxy.com:1318
+
+# Different session = different IP
+sub_k8mX2pL9-session-order456:pass@proxy.turnoxy.com:1318
+
+# No session = rotating IP
+sub_k8mX2pL9-country-US:pass@proxy.turnoxy.com:1318
+```
+
+## Session Modes
+
+| Mode | Parameters | Behavior |
+|------|------------|----------|
+| Rotating | No `session`, no `ttl` | New IP each request |
+| Sticky | `session` only | Same IP for 30 min (default) |
+| Sticky + Custom TTL | `session` + `ttl` | Same IP for specified duration |
+| Timed Rotation | `ttl` only | Auto-rotate every N minutes |
+
+### Examples
+
+```bash
+# Rotating mode - new IP each request
+sub_k8mX2pL9-country-US:pass@proxy.turnoxy.com:1318
+
+# Sticky mode - same IP for 30 minutes
+sub_k8mX2pL9-session-task01:pass@proxy.turnoxy.com:1318
+
+# Sticky mode - same IP for 10 minutes
+sub_k8mX2pL9-session-task01-ttl-10:pass@proxy.turnoxy.com:1318
+
+# Timed rotation - new IP every 5 minutes
+sub_k8mX2pL9-ttl-5:pass@proxy.turnoxy.com:1318
+```
+
+## Session Timeline
+
+```
+session=order123, ttl=10
+
+Timeline:
+│
+├─ 0min   Request → Assigned IP: 1.2.3.4
+├─ 3min   Request → Same IP: 1.2.3.4      ✓
+├─ 7min   Request → Same IP: 1.2.3.4      ✓
+├─ 11min  Request → TTL expired, new IP: 5.6.7.8
+├─ 15min  Request → Same IP: 5.6.7.8      ✓
+└─ ...
+```
+
+## Use Cases
+
+<AccordionGroup>
+  <Accordion title="Multi-step workflows">
+    Keep the same IP throughout a checkout process, form submission, or multi-page scraping task.
+
+    ```bash
+    # All requests in this order use the same IP
+    sub_k8mX2pL9-session-checkout_abc123:pass@proxy.turnoxy.com:1318
+    ```
+  </Accordion>
+
+  <Accordion title="Account operations">
+    Maintain consistent IP for login sessions to avoid security triggers.
+
+    ```bash
+    sub_k8mX2pL9-session-user_12345:pass@proxy.turnoxy.com:1318
+    ```
+  </Accordion>
+
+  <Accordion title="Parallel tasks">
+    Use different session IDs for parallel workers to get different IPs.
+
+    ```bash
+    # Worker 1
+    sub_k8mX2pL9-session-worker1:pass@proxy.turnoxy.com:1318
+
+    # Worker 2
+    sub_k8mX2pL9-session-worker2:pass@proxy.turnoxy.com:1318
+    ```
+  </Accordion>
+</AccordionGroup>
+
+## Errors
+
+| Error Code | HTTP | Cause |
+|------------|------|-------|
+| `SESSION_TOO_SHORT` | 400 | Less than 4 characters |
+| `SESSION_TOO_LONG` | 400 | More than 20 characters |
+| `INVALID_SESSION` | 400 | Contains non-alphanumeric characters |

@@ -1,0 +1,104 @@
+---
+title: "country"
+description: "Target specific countries using ISO country codes"
+---
+
+The `country` parameter targets IPs from a specific country.
+
+## Specification
+
+| Property | Value |
+|----------|-------|
+| Type | String |
+| Format | ISO 3166-1 alpha-2 |
+| Length | 2 characters |
+| Case | Insensitive (stored as uppercase) |
+| Default | Random |
+
+## Usage
+
+```bash
+# United States
+sub_k8mX2pL9-country-US:pass@proxy.turnoxy.com:1318
+
+# Japan
+sub_k8mX2pL9-country-JP:pass@proxy.turnoxy.com:1318
+
+# Lowercase works too
+sub_k8mX2pL9-country-us:pass@proxy.turnoxy.com:1318
+```
+
+## Common Country Codes
+
+### North America
+
+| Code | Country |
+|------|---------|
+| `US` | United States |
+| `CA` | Canada |
+| `MX` | Mexico |
+
+### Europe
+
+| Code | Country |
+|------|---------|
+| `GB` | United Kingdom |
+| `DE` | Germany |
+| `FR` | France |
+| `NL` | Netherlands |
+| `ES` | Spain |
+| `IT` | Italy |
+
+### Asia Pacific
+
+| Code | Country |
+|------|---------|
+| `JP` | Japan |
+| `KR` | South Korea |
+| `SG` | Singapore |
+| `AU` | Australia |
+| `IN` | India |
+| `HK` | Hong Kong |
+| `TW` | Taiwan |
+
+### Other Regions
+
+| Code | Country |
+|------|---------|
+| `BR` | Brazil |
+| `RU` | Russia |
+| `ZA` | South Africa |
+| `AE` | United Arab Emirates |
+
+<Note>
+For the complete list of supported countries, see the [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) standard.
+</Note>
+
+## Combining with Geotargeting
+
+Country can be combined with `state` and `city` for precise targeting:
+
+```bash
+# Country only
+sub_k8mX2pL9-country-US:pass@proxy.turnoxy.com:1318
+
+# Country + State
+sub_k8mX2pL9-country-US-state-california:pass@proxy.turnoxy.com:1318
+
+# Country + City
+sub_k8mX2pL9-country-US-city-los_angeles:pass@proxy.turnoxy.com:1318
+
+# Country + State + City
+sub_k8mX2pL9-country-US-state-california-city-los_angeles:pass@proxy.turnoxy.com:1318
+```
+
+<Warning>
+`state` and `city` require `country` to be specified. Using them alone will result in an error.
+</Warning>
+
+## Errors
+
+| Error Code | HTTP | Cause |
+|------------|------|-------|
+| `INVALID_COUNTRY` | 400 | Not a 2-letter code |
+| `UNSUPPORTED_COUNTRY` | 400 | Country not available |

@@ -1,0 +1,63 @@
+---
+title: "IP Whitelist"
+description: "Authenticate without password by whitelisting your IP addresses"
+---
+
+IP whitelist authentication allows you to make requests without a password by pre-registering your IP addresses.
+
+## How It Works
+
+1. Add your IP address to the whitelist in the Dashboard
+2. Make requests from that IP without a password
+3. Only the username (with parameters) is required
+
+## Configuration
+
+| Setting | Value |
+|---------|-------|
+| Binding Level | Per Subscription |
+| Max IPs | 3 per subscription |
+| Format | IPv4 address |
+
+## Usage
+
+When making requests from a whitelisted IP, omit the password:
+
+```bash
+# From a whitelisted IP - no password needed
+curl -x "http://sub_k8mX2pL9-country-US@proxy.turnoxy.com:1318" \
+     https://example.com
+```
+
+Compare with password authentication:
+
+```bash
+# Standard password authentication
+curl -x "http://sub_k8mX2pL9-country-US:Qw4nR7vB3xY9mK2p@proxy.turnoxy.com:1318" \
+     https://example.com
+```
+
+## Managing Whitelist
+
+You can manage your whitelisted IPs in the [Dashboard](https://turnoxy.com/dashboard):
+
+1. Go to **Settings** → **IP Whitelist**
+2. Click **Add IP**
+3. Enter your IPv4 address
+4. Save changes
+
+<Warning>
+Changes take effect immediately. Make sure you're adding the correct IP address.
+</Warning>
+
+## Use Cases
+
+- **Servers with static IPs** - No need to store credentials in config files
+- **Automated scripts** - Simpler configuration without password management
+- **CI/CD pipelines** - Whitelist your runner IPs for secure access
+
+## Limitations
+
+- IPv4 only (IPv6 not supported)
+- Single IP addresses only (CIDR ranges not supported)
+- Maximum 3 IPs per subscription

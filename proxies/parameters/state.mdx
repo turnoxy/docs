@@ -1,0 +1,86 @@
+---
+title: "state"
+description: "Target specific states or provinces within a country"
+---
+
+The `state` parameter targets IPs from a specific state or province.
+
+## Specification
+
+| Property | Value |
+|----------|-------|
+| Type | String |
+| Format | Lowercase + underscore |
+| Characters | `[a-z_]` |
+| Case | Insensitive (stored as lowercase) |
+| Requires | `country` parameter |
+
+## Naming Convention
+
+- Use English names from GeoNames
+- Replace spaces with underscores
+- All lowercase
+
+| Original | Format |
+|----------|--------|
+| New York | `new_york` |
+| California | `california` |
+| British Columbia | `british_columbia` |
+
+## Usage
+
+```bash
+# California, US
+sub_k8mX2pL9-country-US-state-california:pass@proxy.turnoxy.com:1318
+
+# New York, US
+sub_k8mX2pL9-country-US-state-new_york:pass@proxy.turnoxy.com:1318
+
+# England, UK
+sub_k8mX2pL9-country-GB-state-england:pass@proxy.turnoxy.com:1318
+
+# British Columbia, Canada
+sub_k8mX2pL9-country-CA-state-british_columbia:pass@proxy.turnoxy.com:1318
+```
+
+## Common US States
+
+| State | Code |
+|-------|------|
+| California | `california` |
+| New York | `new_york` |
+| Texas | `texas` |
+| Florida | `florida` |
+| Illinois | `illinois` |
+| Washington | `washington` |
+| Massachusetts | `massachusetts` |
+| Pennsylvania | `pennsylvania` |
+
+## Combining with City
+
+You can add `city` for more precise targeting:
+
+```bash
+# California + Los Angeles
+sub_k8mX2pL9-country-US-state-california-city-los_angeles:pass@proxy.turnoxy.com:1318
+```
+
+### Conflict Resolution
+
+If `city` doesn't belong to the specified `state`, the city is ignored:
+
+```bash
+# California + New York City → city ignored, uses random California city
+sub_k8mX2pL9-country-US-state-california-city-new_york:pass@proxy.turnoxy.com:1318
+```
+
+<Note>
+No error is returned for geographic conflicts. The system silently falls back to the higher-level location.
+</Note>
+
+## Errors
+
+| Error Code | HTTP | Cause |
+|------------|------|-------|
+| `STATE_REQUIRES_COUNTRY` | 400 | `state` used without `country` |
+| `INVALID_STATE` | 400 | State name not recognized |

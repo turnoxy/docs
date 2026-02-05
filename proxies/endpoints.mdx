@@ -1,0 +1,61 @@
+---
+title: "Endpoints"
+description: "Proxy server addresses and ports"
+---
+
+## Service Endpoints
+
+| Protocol | Host | Port |
+|----------|------|------|
+| HTTP | `proxy.turnoxy.com` | `1318` |
+| HTTPS | `proxy.turnoxy.com` | `1318` |
+| SOCKS5 | `proxy.turnoxy.com` | `1319` |
+
+## Connection Examples
+
+### HTTP Proxy
+
+```bash
+curl -x "http://sub_k8mX2pL9:Qw4nR7vB3xY9mK2p@proxy.turnoxy.com:1318" \
+     http://example.com
+```
+
+### HTTPS Proxy
+
+```bash
+curl -x "http://sub_k8mX2pL9:Qw4nR7vB3xY9mK2p@proxy.turnoxy.com:1318" \
+     https://example.com
+```
+
+### SOCKS5 Proxy
+
+```bash
+curl -x "socks5://sub_k8mX2pL9:Qw4nR7vB3xY9mK2p@proxy.turnoxy.com:1319" \
+     https://example.com
+```
+
+## Full URL Format
+
+```
+{protocol}://{username}-{params}:{password}@{host}:{port}
+```
+
+### Components
+
+| Component | Description | Example |
+|-----------|-------------|---------|
+| `protocol` | Proxy protocol | `http`, `socks5` |
+| `username` | Your subscription ID | `sub_k8mX2pL9` |
+| `params` | Optional parameters | `country-US-pool-dc` |
+| `password` | Your password | `Qw4nR7vB3xY9mK2p` |
+| `host` | Proxy server | `proxy.turnoxy.com` |
+| `port` | Service port | `1318` or `1319` |
+
+### Complete Example
+
+```
+http://sub_k8mX2pL9-pool-dc-country-US-session-abc123:Qw4nR7vB3xY9mK2p@proxy.turnoxy.com:1318
+└─┬─┘ └────┬─────┘ └───────────┬───────────────┘ └───────┬────────┘ └──────┬───────┘ └┬─┘
+  │        │                   │                         │                 │          │
+protocol username          parameters                 password           host       port
+```

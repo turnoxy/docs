@@ -1,0 +1,148 @@
+---
+title: "Error Reference"
+description: "Complete list of error codes and troubleshooting"
+---
+
+## HTTP Status Codes
+
+| Status | Category | Description |
+|--------|----------|-------------|
+| 400 | Bad Request | Invalid parameter format or value |
+| 407 | Proxy Auth Required | Authentication failed |
+
+## Authentication Errors
+
+All authentication failures return HTTP `407`:
+
+| Scenario | Response |
+|----------|----------|
+| Invalid username | 407 Proxy Authentication Required |
+| Wrong password | 407 Proxy Authentication Required |
+| Expired subscription | 407 Proxy Authentication Required |
+| Exhausted traffic quota | 407 Proxy Authentication Required |
+| IP not whitelisted | 407 Proxy Authentication Required |
+
+<Note>
+For security reasons, the specific authentication failure cause is not disclosed.
+</Note>
+
+## Parameter Format Errors
+
+HTTP `400 Bad Request`:
+
+| Error Code | Cause | Example |
+|------------|-------|---------|
+| `EMPTY_CREDENTIAL` | Empty username | `:password@...` |
+| `INVALID_CREDENTIAL_PREFIX` | Username doesn't start with `sub_` | `user_xxx:...` |
+| `LEADING_DASH` | Parameters start with `-` | `sub_xxx--country-US:...` |
+| `TRAILING_DASH` | Parameters end with `-` | `sub_xxx-country-US-:...` |
+| `CONSECUTIVE_DASH` | Contains `--` | `sub_xxx-country--US:...` |
+| `INCOMPLETE_PAIR` | Missing parameter value | `sub_xxx-country:...` |
+| `EMPTY_PARAM_NAME` | Empty parameter name | `sub_xxx--US:...` |
+| `EMPTY_PARAM_VALUE` | Empty parameter value | `sub_xxx-country-:...` |
+| `TOO_MANY_PARAMS` | More than 10 parameters | - |
+
+## Parameter Value Errors
+
+HTTP `400 Bad Request`:
+
+### pool
+
+| Error Code | Cause |
+|------------|-------|
+| `INVALID_POOL` | Value not `res`, `dc`, `isp`, or `mob` |
+
+### country
+
+| Error Code | Cause |
+|------------|-------|
+| `INVALID_COUNTRY` | Not a 2-letter code |
+| `UNSUPPORTED_COUNTRY` | Country not available |
+
+### state
+
+| Error Code | Cause |
+|------------|-------|
+| `STATE_REQUIRES_COUNTRY` | `state` used without `country` |
+| `INVALID_STATE` | State name not recognized |
+
+### city
+
+| Error Code | Cause |
+|------------|-------|
+| `CITY_REQUIRES_COUNTRY` | `city` used without `country` |
+| `INVALID_CITY` | City name not recognized |
+
+### session
+
+| Error Code | Cause |
+|------------|-------|
+| `SESSION_TOO_SHORT` | Less than 4 characters |
+| `SESSION_TOO_LONG` | More than 20 characters |
+| `INVALID_SESSION` | Contains non-alphanumeric characters |
+
+### ttl
+
+| Error Code | Cause |
+|------------|-------|
+| `INVALID_TTL` | Non-integer value |
+| `TTL_OUT_OF_RANGE` | Value outside 1-60 |
+
+### timeout
+
+| Error Code | Cause |
+|------------|-------|
+| `INVALID_TIMEOUT` | Non-integer value |
+| `TIMEOUT_OUT_OF_RANGE` | Value outside 1-120 |
+
+## Troubleshooting
+
+<AccordionGroup>
+  <Accordion title="407 Proxy Authentication Required">
+    **Possible causes:**
+    - Incorrect username or password
+    - Subscription expired
+    - Traffic quota exhausted
+    - Request from non-whitelisted IP (when using IP whitelist auth)
+
+    **Solutions:**
+    1. Verify credentials in your [Dashboard](https://turnoxy.com/dashboard)
+    2. Check subscription status
+    3. Check remaining traffic
+    4. If using IP whitelist, verify your current IP is whitelisted
+  </Accordion>
+
+  <Accordion title="400 Bad Request">
+    **Possible causes:**
+    - Malformed parameter string
+    - Invalid parameter values
+
+    **Solutions:**
+    1. Check for typos in parameter names
+    2. Verify parameter values match the expected format
+    3. Ensure no leading/trailing dashes
+    4. Check that all parameters have values
+  </Accordion>
+
+  <Accordion title="Connection Timeout">
+    **Possible causes:**
+    - Target server is slow or unresponsive
+    - Network issues
+
+    **Solutions:**
+    1. Increase the `timeout` parameter
+    2. Try a different target URL to isolate the issue
+    3. Check if the target is blocking proxy IPs
+  </Accordion>
+
+  <Accordion title="No available IPs for location">
+    **Possible causes:**
+    - Requested country/state/city has no available IPs
+    - Pool type not available in that location
+
+    **Solutions:**
+    1. Try a broader location (e.g., country only instead of city)
+    2. Try a different pool type
+    3. Contact support for availability information
+  </Accordion>
+</AccordionGroup>

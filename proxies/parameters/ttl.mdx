@@ -1,0 +1,99 @@
+---
+title: "ttl"
+description: "Control session duration or automatic IP rotation interval"
+---
+
+The `ttl` (time-to-live) parameter controls how long a session lasts or how often IPs rotate.
+
+## Specification
+
+| Property | Value |
+|----------|-------|
+| Type | Integer |
+| Range | 1-60 |
+| Unit | Minutes |
+| Default | 30 (when session is specified) |
+
+## Behavior Matrix
+
+| session | ttl | Behavior |
+|---------|-----|----------|
+| No | No | **Rotating**: New IP each request |
+| Yes | No | **Sticky**: Same IP for 30 min (default) |
+| Yes | Yes | **Sticky**: Same IP for specified TTL |
+| No | Yes | **Timed Rotation**: Auto-rotate every N minutes |
+
+## Usage
+
+### Sticky Session with Custom TTL
+
+```bash
+# Same IP for 10 minutes
+sub_k8mX2pL9-session-order123-ttl-10:pass@proxy.turnoxy.com:1318
+
+# Same IP for 60 minutes (maximum)
+sub_k8mX2pL9-session-order123-ttl-60:pass@proxy.turnoxy.com:1318
+
+# Same IP for 30 minutes (default, ttl not needed)
+sub_k8mX2pL9-session-order123:pass@proxy.turnoxy.com:1318
+```
+
+### Timed Rotation (no session)
+
+```bash
+# Auto-rotate every 5 minutes
+sub_k8mX2pL9-ttl-5:pass@proxy.turnoxy.com:1318
+
+# Auto-rotate every 1 minute
+sub_k8mX2pL9-ttl-1:pass@proxy.turnoxy.com:1318
+```
+
+## Session Lifecycle
+
+### With Session ID
+
+```
+session=task01, ttl=15
+
+│ TTL Start    │ TTL Expired  │ New TTL      │
+├──────────────┼──────────────┼──────────────┤
+│   IP: A      │   IP: B      │   IP: C      │
+│              │              │              │
+0min          15min          30min          45min
+```
+
+All requests within a TTL window share the same IP. When TTL expires, a new IP is assigned.
+
+### Without Session ID (Timed Rotation)
+
+```
+ttl=5 (no session)
+
+│  5min   │  5min   │  5min   │  5min   │
+├─────────┼─────────┼─────────┼─────────┤
+│  IP: A  │  IP: B  │  IP: C  │  IP: D  │
+│         │         │         │         │
+0        5min     10min     15min     20min
+```
+
+IP automatically rotates at fixed intervals.
+
+## Choosing TTL Values
+
+| TTL | Use Case |
+|-----|----------|
+| 1-5 min | High rotation needs, avoiding patterns |
+| 10-15 min | Multi-step tasks, checkout flows |
+| 30 min | Standard sessions, account operations |
+| 60 min | Long-running tasks, extended sessions |
+
+<Tip>
+Start with the default 30-minute TTL and adjust based on your needs. Shorter TTLs provide more IP diversity but may disrupt workflows.
+</Tip>
+
+## Errors
+
+| Error Code | HTTP | Cause |
+|------------|------|-------|
+| `INVALID_TTL` | 400 | Non-integer value |
+| `TTL_OUT_OF_RANGE` | 400 | Value outside 1-60 |
