@@ -1,0 +1,138 @@
+---
+title: "Parameters"
+description: "Customize proxy requests with parameters"
+---
+
+Parameters are appended to the username using `-` as delimiter:
+
+```
+{username}-{param}-{value}-{param}-{value}:{password}@{host}:{port}
+```
+
+## Quick Reference
+
+| Parameter | Values | Default | Description |
+|-----------|--------|---------|-------------|
+| `pool` | `res`, `dc`, `isp`, `mob` | `res` | IP pool type |
+| `country` | ISO 3166-1 alpha-2 | random | Country code |
+| `state` | lowercase + underscore | - | State/province (requires country) |
+| `city` | lowercase + underscore | - | City name (requires country) |
+| `session` | 4-20 alphanumeric | - | Session ID for sticky IP |
+| `ttl` | 1-60 | 30 | Session duration (minutes) |
+| `timeout` | 1-120 | 30 | Connection timeout (seconds) |
+
+---
+
+## pool
+
+Select IP pool type.
+
+| Value | Name | Best For |
+|-------|------|----------|
+| `res` | Residential | Social media, e-commerce, high anonymity |
+| `dc` | Datacenter | High-volume scraping, speed priority |
+| `isp` | ISP | Long-term tasks, balanced needs |
+| `mob` | Mobile | Mobile simulation, highest security |
+
+```bash
+sub_xxx-pool-dc:pass@proxy.turnoxy.com:1318
+```
+
+---
+
+## country
+
+Target specific country using [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) codes.
+
+| Code | Country | Code | Country |
+|------|---------|------|---------|
+| `US` | United States | `JP` | Japan |
+| `GB` | United Kingdom | `DE` | Germany |
+| `CA` | Canada | `AU` | Australia |
+| `FR` | France | `SG` | Singapore |
+
+```bash
+sub_xxx-country-US:pass@proxy.turnoxy.com:1318
+```
+
+---
+
+## state
+
+Target specific state/province. Requires `country`.
+
+**Format**: lowercase, spaces → underscores (e.g., `new_york`, `california`)
+
+```bash
+sub_xxx-country-US-state-california:pass@proxy.turnoxy.com:1318
+```
+
+---
+
+## city
+
+Target specific city. Requires `country`.
+
+**Format**: lowercase, spaces → underscores (e.g., `los_angeles`, `new_york`)
+
+```bash
+sub_xxx-country-US-city-los_angeles:pass@proxy.turnoxy.com:1318
+
+# With state for precision
+sub_xxx-country-US-state-california-city-los_angeles:pass@proxy.turnoxy.com:1318
+```
+
+<Note>
+If `city` conflicts with `state`, the system falls back to state-level targeting.
+</Note>
+
+---
+
+## session
+
+Maintain the same IP across multiple requests.
+
+| Mode | Parameters | Behavior |
+|------|------------|----------|
+| Rotating | (none) | New IP each request |
+| Sticky | `session` | Same IP for 30 min |
+| Sticky + TTL | `session` + `ttl` | Same IP for specified duration |
+| Timed Rotation | `ttl` only | Auto-rotate every N minutes |
+
+```bash
+# Sticky session
+sub_xxx-session-order123:pass@proxy.turnoxy.com:1318
+
+# Sticky with custom TTL
+sub_xxx-session-order123-ttl-10:pass@proxy.turnoxy.com:1318
+```
+
+---
+
+## ttl
+
+Session duration in minutes (1-60). Default: 30.
+
+```bash
+sub_xxx-session-task01-ttl-15:pass@proxy.turnoxy.com:1318
+```
+
+---
+
+## timeout
+
+Connection timeout in seconds (1-120). Default: 30.
+
+```bash
+sub_xxx-timeout-60:pass@proxy.turnoxy.com:1318
+```
+
+---
+
+## Complete Example
+
+```bash
+sub_k8mX2pL9-pool-dc-country-US-state-california-city-los_angeles-session-task01-ttl-15-timeout-60:Qw4nR7vB3xY9mK2p@proxy.turnoxy.com:1318
+```
+
+See [Error Reference](/errors) for validation errors.

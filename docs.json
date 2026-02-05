@@ -30,32 +30,14 @@
           {
             "group": "Proxies",
             "pages": [
-              "proxies/protocols",
-              "proxies/endpoints"
-            ]
-          },
-          {
-            "group": "Parameters",
-            "pages": [
-              "proxies/parameters/overview",
-              "proxies/parameters/pool",
-              "proxies/parameters/country",
-              "proxies/parameters/state",
-              "proxies/parameters/city",
-              "proxies/parameters/session",
-              "proxies/parameters/ttl",
-              "proxies/parameters/timeout"
-            ]
-          },
-          {
-            "group": "Code Examples",
-            "pages": [
-              "examples/curl"
+              "proxies/connection",
+              "proxies/parameters"
             ]
           },
           {
             "group": "Reference",
             "pages": [
+              "examples/curl",
               "errors",
               "changelog"
             ]

@@ -1,163 +1,56 @@
 ---
 title: "cURL Examples"
-description: "Ready-to-use cURL commands for common proxy scenarios"
+description: "Ready-to-use cURL commands"
 ---
 
-## Basic Requests
+Replace `sub_xxx` and `pass` with your credentials from the [Dashboard](https://turnoxy.com/dashboard).
 
-### Simple Request
-
-```bash
-curl -x "http://sub_k8mX2pL9:Qw4nR7vB3xY9mK2p@proxy.turnoxy.com:1318" \
-     https://api.ipify.org
-```
-
-### Check Your Exit IP
+## Basic
 
 ```bash
-curl -x "http://sub_k8mX2pL9:Qw4nR7vB3xY9mK2p@proxy.turnoxy.com:1318" \
-     https://httpbin.org/ip
+curl -x "http://sub_xxx:pass@proxy.turnoxy.com:1318" https://api.ipify.org
 ```
 
 ## Geotargeting
 
-### Target Specific Country
-
 ```bash
-# United States
-curl -x "http://sub_k8mX2pL9-country-US:Qw4nR7vB3xY9mK2p@proxy.turnoxy.com:1318" \
-     https://api.ipify.org
+# Country
+curl -x "http://sub_xxx-country-US:pass@proxy.turnoxy.com:1318" https://api.ipify.org
 
-# Japan
-curl -x "http://sub_k8mX2pL9-country-JP:Qw4nR7vB3xY9mK2p@proxy.turnoxy.com:1318" \
-     https://api.ipify.org
-
-# Germany
-curl -x "http://sub_k8mX2pL9-country-DE:Qw4nR7vB3xY9mK2p@proxy.turnoxy.com:1318" \
-     https://api.ipify.org
-```
-
-### Target State/City
-
-```bash
-# California, US
-curl -x "http://sub_k8mX2pL9-country-US-state-california:Qw4nR7vB3xY9mK2p@proxy.turnoxy.com:1318" \
-     https://api.ipify.org
-
-# Los Angeles, California, US
-curl -x "http://sub_k8mX2pL9-country-US-state-california-city-los_angeles:Qw4nR7vB3xY9mK2p@proxy.turnoxy.com:1318" \
-     https://api.ipify.org
+# State + City
+curl -x "http://sub_xxx-country-US-state-california-city-los_angeles:pass@proxy.turnoxy.com:1318" https://api.ipify.org
 ```
 
 ## IP Pool Types
 
 ```bash
-# Residential (default)
-curl -x "http://sub_k8mX2pL9-pool-res:Qw4nR7vB3xY9mK2p@proxy.turnoxy.com:1318" \
-     https://api.ipify.org
+# Datacenter (faster)
+curl -x "http://sub_xxx-pool-dc:pass@proxy.turnoxy.com:1318" https://api.ipify.org
 
-# Datacenter
-curl -x "http://sub_k8mX2pL9-pool-dc:Qw4nR7vB3xY9mK2p@proxy.turnoxy.com:1318" \
-     https://api.ipify.org
-
-# ISP
-curl -x "http://sub_k8mX2pL9-pool-isp:Qw4nR7vB3xY9mK2p@proxy.turnoxy.com:1318" \
-     https://api.ipify.org
-
-# Mobile
-curl -x "http://sub_k8mX2pL9-pool-mob:Qw4nR7vB3xY9mK2p@proxy.turnoxy.com:1318" \
-     https://api.ipify.org
+# Mobile (highest anonymity)
+curl -x "http://sub_xxx-pool-mob:pass@proxy.turnoxy.com:1318" https://api.ipify.org
 ```
 
 ## Session Control
 
-### Sticky Session
-
 ```bash
-# Same IP for all requests with this session ID
-curl -x "http://sub_k8mX2pL9-session-mysession:Qw4nR7vB3xY9mK2p@proxy.turnoxy.com:1318" \
-     https://api.ipify.org
+# Sticky session (same IP for 30 min)
+curl -x "http://sub_xxx-session-order123:pass@proxy.turnoxy.com:1318" https://api.ipify.org
 
-# Run multiple times - should return the same IP
-```
-
-### Custom Session TTL
-
-```bash
-# Session expires after 10 minutes
-curl -x "http://sub_k8mX2pL9-session-mysession-ttl-10:Qw4nR7vB3xY9mK2p@proxy.turnoxy.com:1318" \
-     https://api.ipify.org
-```
-
-### Rotating IPs
-
-```bash
-# No session = new IP each request
-curl -x "http://sub_k8mX2pL9-country-US:Qw4nR7vB3xY9mK2p@proxy.turnoxy.com:1318" \
-     https://api.ipify.org
-
-# Run multiple times - should return different IPs
+# Custom TTL (10 min)
+curl -x "http://sub_xxx-session-order123-ttl-10:pass@proxy.turnoxy.com:1318" https://api.ipify.org
 ```
 
 ## SOCKS5
 
 ```bash
-curl -x "socks5://sub_k8mX2pL9:Qw4nR7vB3xY9mK2p@proxy.turnoxy.com:1319" \
-     https://api.ipify.org
-
-# With parameters
-curl -x "socks5://sub_k8mX2pL9-country-JP:Qw4nR7vB3xY9mK2p@proxy.turnoxy.com:1319" \
-     https://api.ipify.org
+curl -x "socks5://sub_xxx:pass@proxy.turnoxy.com:1319" https://api.ipify.org
 ```
 
-## Complete Examples
-
-### Full Configuration
+## Full Example
 
 ```bash
-curl -x "http://sub_k8mX2pL9-pool-dc-country-US-state-california-city-los_angeles-session-task01-ttl-15-timeout-60:Qw4nR7vB3xY9mK2p@proxy.turnoxy.com:1318" \
-     https://httpbin.org/ip
-```
-
-### With Custom Headers
-
-```bash
-curl -x "http://sub_k8mX2pL9-country-US:Qw4nR7vB3xY9mK2p@proxy.turnoxy.com:1318" \
-     -H "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36" \
-     -H "Accept-Language: en-US,en;q=0.9" \
-     https://httpbin.org/headers
-```
-
-### POST Request
-
-```bash
-curl -x "http://sub_k8mX2pL9-country-US:Qw4nR7vB3xY9mK2p@proxy.turnoxy.com:1318" \
-     -X POST \
-     -H "Content-Type: application/json" \
-     -d '{"key": "value"}' \
-     https://httpbin.org/post
-```
-
-### Download File
-
-```bash
-curl -x "http://sub_k8mX2pL9-timeout-120:Qw4nR7vB3xY9mK2p@proxy.turnoxy.com:1318" \
-     -o output.html \
-     https://example.com
-```
-
-## Debugging
-
-### Verbose Output
-
-```bash
-curl -v -x "http://sub_k8mX2pL9-country-US:Qw4nR7vB3xY9mK2p@proxy.turnoxy.com:1318" \
-     https://api.ipify.org
-```
-
-### Show Response Headers
-
-```bash
-curl -i -x "http://sub_k8mX2pL9-country-US:Qw4nR7vB3xY9mK2p@proxy.turnoxy.com:1318" \
+curl -x "http://sub_xxx-pool-dc-country-US-session-task01-ttl-15:pass@proxy.turnoxy.com:1318" \
+     -H "User-Agent: Mozilla/5.0" \
      https://httpbin.org/ip
 ```
