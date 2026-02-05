@@ -62,21 +62,7 @@
           }
         ]
       }
-    ],
-    "global": {
-      "anchors": [
-        {
-          "anchor": "Dashboard",
-          "href": "https://turnoxy.com/dashboard",
-          "icon": "gauge"
-        },
-        {
-          "anchor": "Support",
-          "href": "mailto:support@turnoxy.com",
-          "icon": "envelope"
-        }
-      ]
-    }
+    ]
   },
   "logo": {
     "light": "/logo/light.svg",
