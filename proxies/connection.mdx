@@ -12,29 +12,26 @@ description: "Proxy endpoints and URL format"
 ## URL Format
 
 ```
-{protocol}://{username}-{params}:{password}@{host}:{port}
+http://{username}-{params}:{password}@{host}:{port}
 ```
 
 ```
-http://sub_k8mX2pL9-country-US:Qw4nR7vB3xY9mK2p@p1.turnoxy.com:1318
-└─┬─┘ └────┬─────┘ └────┬────┘ └───────┬────────┘ └──────┬───────┘ └┬─┘
-  │        │            │              │                 │          │
-protocol username   parameters      password           host       port
+http://sub_xxx-country-US:pass@p1.turnoxy.com:1318
+└─┬─┘ └──┬──┘ └────┬────┘ └┬─┘ └──────┬──────┘ └┬─┘
+  │      │         │       │          │         │
+protocol user   params   pass       host      port
 ```
 
 ## HTTP/HTTPS
 
 ```bash
-# HTTP
-curl -x "http://sub_k8mX2pL9:Qw4nR7vB3xY9mK2p@p1.turnoxy.com:1318" \
-     http://example.com
+# HTTP target
+curl -x "http://sub_xxx:pass@p1.turnoxy.com:1318" http://example.com
 
-# HTTPS (same proxy URL, different target)
-curl -x "http://sub_k8mX2pL9:Qw4nR7vB3xY9mK2p@p1.turnoxy.com:1318" \
-     https://example.com
+# HTTPS target
+curl -x "http://sub_xxx:pass@p1.turnoxy.com:1318" https://example.com
 ```
 
 <Note>
 Proxy URL uses `http://` for both HTTP and HTTPS targets. HTTPS uses CONNECT tunneling.
 </Note>
-

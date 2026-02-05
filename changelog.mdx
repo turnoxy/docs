@@ -1,6 +1,6 @@
 ---
 title: "Changelog"
-description: "Turnoxy proxy service updates and changes"
+description: "Turnoxy proxy service updates"
 ---
 
 ## v2.1 - February 2025
@@ -10,14 +10,8 @@ description: "Turnoxy proxy service updates and changes"
 - Added IP whitelist authentication method (up to 3 IPs per subscription)
 
 ### Improvements
-- Added automatic retry mechanism for TCP connection failures
-- Improved geolocation conflict handling (silent fallback to higher-level location)
-- Enhanced documentation with detailed system behavior descriptions
-
-### Documentation
-- Added Authentication Methods section
-- Added System Behavior section (auto-retry mechanism)
-- Restructured documentation for better navigation
+- Automatic retry mechanism for TCP connection failures
+- Geolocation conflict handling (silent fallback to higher-level location)
 
 ---
 
@@ -25,22 +19,13 @@ description: "Turnoxy proxy service updates and changes"
 
 ### Breaking Changes
 - Credential format changed to `sub_` prefix
-- Pool parameter values shortened: `residential` → `res`, `datacenter` → `dc`, etc.
 - TTL range adjusted to 1-60 minutes
 - Session ID length requirement: 4-20 characters
 
 ### New Features
-- Four IP pool types: `res`, `dc`, `isp`, `mob`
 - Geotargeting: country, state, city
 - Sticky sessions with configurable TTL
 - Timed IP rotation mode
-
----
-
-## v1.1 - January 2025
-
-### New Features
-- Reserved `state` and `city` parameters for future use
 
 ---
 
