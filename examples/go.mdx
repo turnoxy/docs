@@ -1,0 +1,180 @@
+---
+title: "Go"
+description: "Go examples with net/http and colly"
+---
+
+Replace credentials with your [Dashboard](https://turnoxy.com/dashboard) values.
+
+## net/http
+
+```go
+package main
+
+import (
+    "fmt"
+    "io"
+    "net/http"
+    "net/url"
+)
+
+func main() {
+    proxyURL, _ := url.Parse("http://sub_xxx:pass@p1.turnoxy.com:1318")
+
+    client := &http.Client{
+        Transport: &http.Transport{
+            Proxy: http.ProxyURL(proxyURL),
+        },
+    }
+
+    resp, _ := client.Get("https://api.ipify.org")
+    defer resp.Body.Close()
+
+    body, _ := io.ReadAll(resp.Body)
+    fmt.Println(string(body))
+}
+```
+
+### With Parameters
+
+```go
+package main
+
+import (
+    "fmt"
+    "io"
+    "net/http"
+    "net/url"
+)
+
+func main() {
+    // Target US IPs
+    proxyURL, _ := url.Parse("http://sub_xxx-country-US:pass@p1.turnoxy.com:1318")
+
+    client := &http.Client{
+        Transport: &http.Transport{
+            Proxy: http.ProxyURL(proxyURL),
+        },
+    }
+
+    resp, _ := client.Get("https://api.ipify.org")
+    defer resp.Body.Close()
+
+    body, _ := io.ReadAll(resp.Body)
+    fmt.Println(string(body))
+}
+```
+
+### Sticky Session
+
+```go
+package main
+
+import (
+    "fmt"
+    "io"
+    "net/http"
+    "net/url"
+)
+
+func main() {
+    // Same IP for multiple requests
+    proxyURL, _ := url.Parse("http://sub_xxx-session-order123-ttl-10:pass@p1.turnoxy.com:1318")
+
+    client := &http.Client{
+        Transport: &http.Transport{
+            Proxy: http.ProxyURL(proxyURL),
+        },
+    }
+
+    for i := 0; i < 3; i++ {
+        resp, _ := client.Get("https://api.ipify.org")
+        body, _ := io.ReadAll(resp.Body)
+        resp.Body.Close()
+        fmt.Printf("Request %d: %s\n", i+1, string(body))
+    }
+}
+```
+
+## Colly
+
+```go
+package main
+
+import (
+    "fmt"
+    "github.com/gocolly/colly/v2"
+)
+
+func main() {
+    c := colly.NewCollector()
+
+    c.SetProxy("http://sub_xxx:pass@p1.turnoxy.com:1318")
+
+    c.OnResponse(func(r *colly.Response) {
+        fmt.Println(string(r.Body))
+    })
+
+    c.Visit("https://api.ipify.org")
+}
+```
+
+### Colly with Geotargeting
+
+```go
+package main
+
+import (
+    "fmt"
+    "github.com/gocolly/colly/v2"
+)
+
+func main() {
+    c := colly.NewCollector()
+
+    // Target Japan IPs
+    c.SetProxy("http://sub_xxx-country-JP:pass@p1.turnoxy.com:1318")
+
+    c.OnResponse(func(r *colly.Response) {
+        fmt.Println(string(r.Body))
+    })
+
+    c.Visit("https://api.ipify.org")
+}
+```
+
+## Concurrent Requests
+
+```go
+package main
+
+import (
+    "fmt"
+    "io"
+    "net/http"
+    "net/url"
+    "sync"
+)
+
+func main() {
+    proxyURL, _ := url.Parse("http://sub_xxx:pass@p1.turnoxy.com:1318")
+
+    client := &http.Client{
+        Transport: &http.Transport{
+            Proxy: http.ProxyURL(proxyURL),
+        },
+    }
+
+    var wg sync.WaitGroup
+    for i := 0; i < 5; i++ {
+        wg.Add(1)
+        go func(n int) {
+            defer wg.Done()
+            resp, _ := client.Get("https://api.ipify.org")
+            body, _ := io.ReadAll(resp.Body)
+            resp.Body.Close()
+            fmt.Printf("Request %d: %s\n", n, string(body))
+        }(i + 1)
+    }
+    wg.Wait()
+}
+```

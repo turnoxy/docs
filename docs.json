@@ -34,9 +34,18 @@
             ]
           },
           {
-            "group": "Reference",
+            "group": "Examples",
             "pages": [
               "examples/curl",
+              "examples/python",
+              "examples/nodejs",
+              "examples/go",
+              "examples/php"
+            ]
+          },
+          {
+            "group": "Reference",
+            "pages": [
               "errors",
               "changelog"
             ]
