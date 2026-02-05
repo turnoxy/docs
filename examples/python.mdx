@@ -1,0 +1,121 @@
+---
+title: "Python"
+description: "Python examples with requests and aiohttp"
+---
+
+Replace credentials with your [Dashboard](https://turnoxy.com/dashboard) values.
+
+## requests
+
+```python
+import requests
+
+proxy = "http://sub_xxx:pass@p1.turnoxy.com:1318"
+
+response = requests.get(
+    "https://api.ipify.org",
+    proxies={"http": proxy, "https": proxy}
+)
+print(response.text)
+```
+
+### With Parameters
+
+```python
+import requests
+
+# Target US IPs
+proxy = "http://sub_xxx-country-US:pass@p1.turnoxy.com:1318"
+
+response = requests.get(
+    "https://api.ipify.org",
+    proxies={"http": proxy, "https": proxy}
+)
+print(response.text)
+```
+
+### Sticky Session
+
+```python
+import requests
+
+# Same IP for multiple requests
+proxy = "http://sub_xxx-session-order123-ttl-10:pass@p1.turnoxy.com:1318"
+
+session = requests.Session()
+session.proxies = {"http": proxy, "https": proxy}
+
+for i in range(3):
+    response = session.get("https://api.ipify.org")
+    print(f"Request {i+1}: {response.text}")
+```
+
+## aiohttp
+
+```python
+import aiohttp
+import asyncio
+
+async def fetch():
+    proxy = "http://sub_xxx:pass@p1.turnoxy.com:1318"
+
+    async with aiohttp.ClientSession() as session:
+        async with session.get(
+            "https://api.ipify.org",
+            proxy=proxy
+        ) as response:
+            print(await response.text())
+
+asyncio.run(fetch())
+```
+
+### Concurrent Requests
+
+```python
+import aiohttp
+import asyncio
+
+async def fetch(session, url, proxy):
+    async with session.get(url, proxy=proxy) as response:
+        return await response.text()
+
+async def main():
+    proxy = "http://sub_xxx:pass@p1.turnoxy.com:1318"
+    urls = ["https://api.ipify.org"] * 5
+
+    async with aiohttp.ClientSession() as session:
+        tasks = [fetch(session, url, proxy) for url in urls]
+        results = await asyncio.gather(*tasks)
+        for ip in results:
+            print(ip)
+
+asyncio.run(main())
+```
+
+## httpx
+
+```python
+import httpx
+
+proxy = "http://sub_xxx:pass@p1.turnoxy.com:1318"
+
+with httpx.Client(proxy=proxy) as client:
+    response = client.get("https://api.ipify.org")
+    print(response.text)
+```
+
+### Async httpx
+
+```python
+import httpx
+import asyncio
+
+async def fetch():
+    proxy = "http://sub_xxx:pass@p1.turnoxy.com:1318"
+
+    async with httpx.AsyncClient(proxy=proxy) as client:
+        response = await client.get("https://api.ipify.org")
+        print(response.text)
+
+asyncio.run(fetch())
+```

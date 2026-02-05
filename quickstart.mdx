@@ -1,36 +1,29 @@
 ---
 title: "Quickstart"
-description: "Get started with Turnoxy proxies in minutes"
+description: "Make your first proxy request"
 ---
 
-## 1. Get Your Credentials
+## 1. Get Credentials
 
-After subscribing to a plan, you'll receive credentials in this format:
+Your credentials are available in the [Dashboard](https://turnoxy.com/dashboard):
 
-| Component | Example |
-|-----------|---------|
-| Username | `sub_k8mX2pL9` |
-| Password | `Qw4nR7vB3xY9mK2p` |
-
-You can find your credentials in the [Dashboard](https://turnoxy.com/dashboard).
+| Component | Format |
+|-----------|--------|
+| Username | `sub_` + 8 chars |
+| Password | 16 chars |
 
 ## 2. Make Your First Request
 
 <CodeGroup>
 ```bash cURL
-curl -x "http://sub_k8mX2pL9:Qw4nR7vB3xY9mK2p@p1.turnoxy.com:1318" \
-     https://api.ipify.org
+curl -x "http://sub_xxx:pass@p1.turnoxy.com:1318" https://api.ipify.org
 ```
 
 ```python Python
 import requests
 
-proxies = {
-    "http": "http://sub_k8mX2pL9:Qw4nR7vB3xY9mK2p@p1.turnoxy.com:1318",
-    "https": "http://sub_k8mX2pL9:Qw4nR7vB3xY9mK2p@p1.turnoxy.com:1318"
-}
-
-response = requests.get("https://api.ipify.org", proxies=proxies)
+proxy = "http://sub_xxx:pass@p1.turnoxy.com:1318"
+response = requests.get("https://api.ipify.org", proxies={"http": proxy, "https": proxy})
 print(response.text)
 ```
 
@@ -41,48 +34,41 @@ const response = await axios.get('https://api.ipify.org', {
   proxy: {
     host: 'p1.turnoxy.com',
     port: 1318,
-    auth: {
-      username: 'sub_k8mX2pL9',
-      password: 'Qw4nR7vB3xY9mK2p'
-    }
+    auth: { username: 'sub_xxx', password: 'pass' }
   }
 });
-
 console.log(response.data);
 ```
 </CodeGroup>
 
 ## 3. Add Parameters
 
-Customize your requests by adding parameters to the username:
+Append parameters to the username with `-` delimiter:
 
 ```bash
 # Target US IPs
-curl -x "http://sub_k8mX2pL9-country-US:Qw4nR7vB3xY9mK2p@p1.turnoxy.com:1318" \
-     https://api.ipify.org
+curl -x "http://sub_xxx-country-US:pass@p1.turnoxy.com:1318" https://api.ipify.org
 
 # Target Germany IPs
-curl -x "http://sub_k8mX2pL9-country-DE:Qw4nR7vB3xY9mK2p@p1.turnoxy.com:1318" \
-     https://api.ipify.org
+curl -x "http://sub_xxx-country-DE:pass@p1.turnoxy.com:1318" https://api.ipify.org
 
 # Sticky session (same IP for 10 minutes)
-curl -x "http://sub_k8mX2pL9-session-mysession-ttl-10:Qw4nR7vB3xY9mK2p@p1.turnoxy.com:1318" \
-     https://api.ipify.org
+curl -x "http://sub_xxx-session-mysession-ttl-10:pass@p1.turnoxy.com:1318" https://api.ipify.org
 ```
 
 ## Next Steps
 
 <CardGroup cols={2}>
   <Card title="Authentication" icon="key" href="/authentication/password">
-    Learn about authentication methods.
+    Password and IP whitelist options.
   </Card>
   <Card title="Parameters" icon="sliders" href="/proxies/parameters">
-    Explore all available parameters.
+    All available parameters.
   </Card>
   <Card title="Geotargeting" icon="location-dot" href="/proxies/parameters#country">
-    Target specific locations.
+    Country, state, and city targeting.
   </Card>
-  <Card title="Code Examples" icon="code" href="/examples/curl">
-    Ready-to-use code snippets.
+  <Card title="Examples" icon="code" href="/examples/curl">
+    Code snippets in multiple languages.
   </Card>
 </CardGroup>

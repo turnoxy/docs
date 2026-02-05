@@ -1,15 +1,15 @@
 ---
 title: "IP Whitelist"
-description: "Authenticate without password by whitelisting your IP addresses"
+description: "Authenticate without password using whitelisted IPs"
 ---
 
-IP whitelist authentication allows you to make requests without a password by pre-registering your IP addresses.
+Pre-register your IP addresses to skip password authentication.
 
 ## How It Works
 
-1. Add your IP address to the whitelist in the Dashboard
-2. Make requests from that IP without a password
-3. Only the username (with parameters) is required
+1. Add your IP to the whitelist in Dashboard
+2. Make requests without password
+3. Only username (with parameters) required
 
 ## Configuration
 
@@ -21,43 +21,32 @@ IP whitelist authentication allows you to make requests without a password by pr
 
 ## Usage
 
-When making requests from a whitelisted IP, omit the password:
+From a whitelisted IP, omit the password:
 
 ```bash
-# From a whitelisted IP - no password needed
-curl -x "http://sub_k8mX2pL9-country-US@p1.turnoxy.com:1318" \
-     https://example.com
-```
+# IP whitelist (no password)
+curl -x "http://sub_xxx-country-US@p1.turnoxy.com:1318" https://example.com
 
-Compare with password authentication:
-
-```bash
-# Standard password authentication
-curl -x "http://sub_k8mX2pL9-country-US:Qw4nR7vB3xY9mK2p@p1.turnoxy.com:1318" \
-     https://example.com
+# Password auth (for comparison)
+curl -x "http://sub_xxx-country-US:pass@p1.turnoxy.com:1318" https://example.com
 ```
 
 ## Managing Whitelist
 
-You can manage your whitelisted IPs in the [Dashboard](https://turnoxy.com/dashboard):
-
-1. Go to **Settings** → **IP Whitelist**
-2. Click **Add IP**
-3. Enter your IPv4 address
-4. Save changes
+In your [Dashboard](https://turnoxy.com/dashboard): **Settings** → **IP Whitelist**
 
 <Warning>
-Changes take effect immediately. Make sure you're adding the correct IP address.
+Changes take effect immediately.
 </Warning>
 
 ## Use Cases
 
-- **Servers with static IPs** - No need to store credentials in config files
-- **Automated scripts** - Simpler configuration without password management
-- **CI/CD pipelines** - Whitelist your runner IPs for secure access
+- **Static IP servers** - No credentials in config files
+- **Automation** - Simpler configuration
+- **CI/CD pipelines** - Whitelist runner IPs
 
 ## Limitations
 
-- IPv4 only (IPv6 not supported)
-- Single IP addresses only (CIDR ranges not supported)
-- Maximum 3 IPs per subscription
+- IPv4 only
+- Single IPs only (no CIDR)
+- Max 3 IPs per subscription
