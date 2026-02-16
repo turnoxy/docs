@@ -16,8 +16,9 @@ Pre-register your IP addresses to skip password authentication.
 | Setting | Value |
 |---------|-------|
 | Binding Level | Per Subscription |
-| Max IPs | 3 per subscription |
+| Max IPs | 2 per subscription (varies by plan) |
 | Format | IPv4 address |
+| Label | Optional (letters, numbers, underscores, max 15 chars) |
 
 ## Usage
 
@@ -31,12 +32,42 @@ curl -x "http://sub_xxx-country-US@gate.turnoxy.com:1318" https://example.com
 curl -x "http://sub_xxx-country-US:pass@gate.turnoxy.com:1318" https://example.com
 ```
 
-## Managing Whitelist
+## Adding IPs to Whitelist
 
-In your [Dashboard](https://turnoxy.com/dashboard): **Settings** → **IP Whitelist**
+### Step-by-Step
+
+1. **Navigate to Dashboard**
+   - Go to [Dashboard](https://turnoxy.com/dashboard)
+   - Select your subscription
+
+2. **Access IP Whitelist**
+   - Scroll to **IP WHITELIST** section
+   - Click **+ ADD IP** button
+
+3. **Enter IP Details**
+   - **IP Address** (required): Enter your IPv4 address (e.g., `1.1.1.1`)
+   - **Label** (optional): Add a friendly name (e.g., `Office_IP`)
+
+4. **Confirm**
+   - Click **Add IP**
+   - IP takes effect immediately
+
+### Quota Limits
+
+- Each subscription has a limit (typically **2 IPs**)
+- Limit varies by plan tier
+- When quota is full, the **+ ADD IP** button is disabled
+- Hover over disabled button to see quota message
+
+### Removing IPs
+
+- Hover over an IP card to reveal the delete icon
+- Click the **×** icon to remove
+- Confirm the deletion in the dialog
+- Removal takes effect immediately
 
 <Warning>
-Changes take effect immediately.
+Changes (additions and deletions) take effect immediately.
 </Warning>
 
 ## Use Cases
@@ -47,6 +78,8 @@ Changes take effect immediately.
 
 ## Limitations
 
-- IPv4 only
-- Single IPs only (no CIDR)
-- Max 3 IPs per subscription
+- **IPv4 only** - IPv6 not supported
+- **Single IPs only** - CIDR notation not supported
+- **Quota limits** - 2 IPs per subscription (varies by plan)
+- **Label format** - Letters, numbers, underscores only (max 15 characters)
+- **Global uniqueness** - Each IP can only be whitelisted once across all subscriptions
