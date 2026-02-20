@@ -1,35 +1,44 @@
 ---
 title: "IP Whitelist"
-description: "Authenticate without password using whitelisted IPs"
+description: "Authenticate without credentials using whitelisted IPs"
 ---
 
-Pre-register your IP addresses to skip password authentication.
+Pre-register your IP addresses to skip credential authentication entirely.
 
 ## How It Works
 
-1. Add your IP to the whitelist in Dashboard
-2. Make requests without password
-3. Only username (with parameters) required
+1. Add your server IP to the whitelist in Dashboard
+2. Make requests from that IP — no username or password needed
+3. The proxy automatically identifies your subscription by IP
 
 ## Configuration
 
 | Setting | Value |
 |---------|-------|
+| Endpoint | `gate.turnoxy.com:1318` (same as password auth) |
 | Binding Level | Per Subscription |
 | Max IPs | 2 per subscription (varies by plan) |
-| Format | IPv4 address |
-| Label | Optional (letters, numbers, underscores, max 15 chars) |
+| Format | IPv4 only |
 
 ## Usage
 
-From a whitelisted IP, omit the password:
+From a whitelisted IP, simply point your client at the proxy — no credentials required:
 
 ```bash
-# IP whitelist (no password)
-curl -x "http://sub_xxx-country-US@gate.turnoxy.com:1318" https://example.com
+# IP whitelist — no credentials
+curl -x "http://gate.turnoxy.com:1318" https://example.com
 
-# Password auth (for comparison)
-curl -x "http://sub_xxx-country-US:pass@gate.turnoxy.com:1318" https://example.com
+# For comparison, password auth on the same port
+curl -x "http://sub_xxx:pass@gate.turnoxy.com:1318" https://example.com
+```
+
+Both authentication methods work on the same endpoint (`gate.turnoxy.com:1318`). If credentials are provided, password auth takes priority regardless of IP whitelist status.
+
+### SOCKS5
+
+```bash
+# IP whitelist via SOCKS5
+curl --socks5 gate.turnoxy.com:1318 https://example.com
 ```
 
 ## Adding IPs to Whitelist
@@ -57,29 +66,42 @@ curl -x "http://sub_xxx-country-US:pass@gate.turnoxy.com:1318" https://example.c
 - Each subscription has a limit (typically **2 IPs**)
 - Limit varies by plan tier
 - When quota is full, the **+ ADD IP** button is disabled
-- Hover over disabled button to see quota message
 
 ### Removing IPs
 
 - Hover over an IP card to reveal the delete icon
-- Click the **×** icon to remove
-- Confirm the deletion in the dialog
+- Click the **x** icon to remove
 - Removal takes effect immediately
 
 <Warning>
-Changes (additions and deletions) take effect immediately.
+Each IP address can only be whitelisted by one subscription across the entire system. If you need to move an IP to a different subscription, remove it first.
 </Warning>
+
+## Differences from Password Auth
+
+| Feature | Password Auth | IP Whitelist |
+|---------|--------------|--------------|
+| Credentials required | Yes | No |
+| Proxy parameters (country, session, etc.) | Yes (via username) | No |
+| Session stickiness | Configurable | Rotate only |
+| Geo-targeting | Yes | No |
+| Usage tracking | Yes | Yes |
+| Balance checking | Yes | Yes |
+
+<Note>
+Since there is no username to embed parameters in, IP whitelist auth always uses the default pool with rotating IPs. If you need geo-targeting or sticky sessions, use password authentication.
+</Note>
 
 ## Use Cases
 
-- **Static IP servers** - No credentials in config files
-- **Automation** - Simpler configuration
-- **CI/CD pipelines** - Whitelist runner IPs
+- **Static IP servers** — No credentials in config files
+- **Automation** — Simplest possible configuration
+- **CI/CD pipelines** — Whitelist runner IPs
 
 ## Limitations
 
-- **IPv4 only** - IPv6 not supported
-- **Single IPs only** - CIDR notation not supported
-- **Quota limits** - 2 IPs per subscription (varies by plan)
-- **Label format** - Letters, numbers, underscores only (max 15 characters)
-- **Global uniqueness** - Each IP can only be whitelisted once across all subscriptions
+- **IPv4 only** — IPv6 addresses not supported
+- **Single IPs only** — CIDR notation not supported
+- **No proxy parameters** — Country, session, TTL not available
+- **Quota limits** — 2 IPs per subscription (varies by plan)
+- **Global uniqueness** — Each IP can only be whitelisted once across all subscriptions

@@ -5,9 +5,11 @@ description: "Proxy endpoints and URL format"
 
 ## Endpoints
 
-| Host | Port |
-|------|------|
-| `gate.turnoxy.com` | `1318` |
+| Host | Port | Auth Methods |
+|------|------|-------------|
+| `gate.turnoxy.com` | `1318` | Password or IP Whitelist |
+
+Both authentication methods share the same endpoint. See [Password](/authentication/password) and [IP Whitelist](/authentication/ip-whitelist) for details.
 
 ## URL Format
 
@@ -41,3 +43,11 @@ curl -x "http://sub_xxx:pass@gate.turnoxy.com:1318" https://example.com
 <Note>
 Proxy URL uses `http://` for both HTTP and HTTPS targets. HTTPS uses CONNECT tunneling.
 </Note>
+
+## IP Whitelist (No Credentials)
+
+From a [whitelisted IP](/authentication/ip-whitelist), no credentials are needed:
+
+```bash
+curl -x "http://gate.turnoxy.com:1318" https://example.com
+```
