@@ -3,11 +3,27 @@ title: "Changelog"
 description: "Turnoxy proxy service updates"
 ---
 
+## v3.0 - February 2026
+
+### New Features
+- **Sticky session endpoint affinity** — Same session ID now routes to the same upstream endpoint via Redis-backed affinity
+- **IP whitelist on shared port** — Whitelist authentication now works on the main port (`1318`) alongside password auth, no separate ports needed
+- **Database-backed architecture** — Pools, sources, and endpoints migrated from config files to PostgreSQL with Redis caching
+- **Provider adapter system** — Geo parameter translation for upstream providers (e.g., Massive)
+- **Usage tracking pipeline** — Real-time bandwidth tracking via Redis counters with periodic flush to PostgreSQL
+
+### Improvements
+- IP whitelist management UI in Dashboard with real-time add/remove
+- Reserved IP blocking (private/loopback ranges rejected)
+- Session and TTL fields logged in access log for debugging
+
+---
+
 ## v2.1 - February 2025
 
 ### New Features
 - Added `timeout` parameter for connection timeout control (1-120 seconds)
-- Added IP whitelist authentication method (up to 3 IPs per subscription)
+- Added IP whitelist authentication method (up to 2 IPs per subscription, varies by plan)
 
 ### Improvements
 - Automatic retry mechanism for TCP connection failures

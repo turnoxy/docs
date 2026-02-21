@@ -1,46 +1,26 @@
 # Documentation TODO
 
-Features temporarily removed from documentation. Add back when supported.
-
-## Pool Parameter
-
-IP pool type selection parameter. Add when multiple pools are available.
-
-**Parameter**: `pool`
-
-**Values**:
-| Value | Name | Best For |
-|-------|------|----------|
-| `res` | Residential | Social media, e-commerce, high anonymity |
-| `dc` | Datacenter | High-volume scraping, speed priority |
-| `isp` | ISP | Long-term tasks, balanced needs |
-| `mob` | Mobile | Mobile simulation, highest security |
-
-**Example**:
-```bash
-sub_xxx-pool-dc:pass@gate.turnoxy.com:1318
-```
-
-**Files to update**:
-- `proxies/parameters.mdx` - Add pool section and Quick Reference table
-- `examples/curl.mdx` - Add IP Pool Types examples
-- `quickstart.mdx` - Add pool examples and Card link
-- `authentication/password.mdx` - Update Multiple Parameters example
-- `errors.mdx` - Add INVALID_POOL error
-
----
+Features and documentation items to add.
 
 ## SOCKS5 Protocol
 
-SOCKS5 proxy protocol support. Add when SOCKS5 is available.
+SOCKS5 is now supported on port 1318 (same port, auto-detected by ProtocolDetector). Documentation needs updating.
 
-**Endpoint**: `gate.turnoxy.com:1319`
+**Endpoint**: `gate.turnoxy.com:1318` (shared with HTTP/HTTPS)
 
 **Example**:
 ```bash
-curl -x "socks5://sub_xxx:pass@gate.turnoxy.com:1319" https://example.com
+curl -x "socks5://sub_xxx:pass@gate.turnoxy.com:1318" https://example.com
 ```
 
 **Files to update**:
 - `proxies/connection.mdx` - Add SOCKS5 endpoint and Protocol Comparison table
 - `examples/curl.mdx` - Add SOCKS5 example
+
+---
+
+## Pool Parameter (Archived)
+
+> **Decision (2026-02)**: Pool is now bound at subscription level via `subscriptions.poolId`, not as a user parameter in the proxy username. The `pool` parameter is still parsed by the proxy for backwards compatibility but is **not used for routing**.
+
+This TODO item is no longer applicable. Users select their pool type (res/dc/isp/mob) when creating a subscription, not per-request.
